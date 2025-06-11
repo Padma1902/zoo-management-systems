@@ -16,42 +16,35 @@ def save_data(data):
         json.dump(data, f, indent=4)
 
 @app.route('/')
-def index():
-    animals = load_data()
-    return render_template("index.html", animals=animals)
+def home():
+    return render_template("form.html")  # Only shows the form
 
 @app.route('/add', methods=['POST'])
-def add():
-    name = request.form['name']
-    species = request.form['species']
-    age = request.form['age']
-    caretaker = request.form['caretaker']
-    feeding_schedule = request.form['feeding_schedule']
-    vet_checkups = request.form['vet_checkups']
-    tickets = request.form['tickets']
-    visitors = request.form['visitors']
-
+def add_animal():
     data = load_data()
-    data.append({
-        "name": name,
-        "species": species,
-        "age": age,
-        "caretaker": caretaker,
-        "feeding_schedule": feeding_schedule,
-        "vet_checkups": vet_checkups,
-        "tickets": tickets,
-        "visitors": visitors
-    })
+    new_animal = {
+        "name": request.form['name'],
+        "species": request.form['species'],
+        "age": request.form['age'],
+        "caretaker": request.form['caretaker'],
+        "feeding_schedule": request.form['feeding_schedule'],
+        "vet_checkups": request.form['vet_checkups'],
+        "tickets": request.form['tickets'],
+        "visitors": request.form['visitors'],
+    }
+    data.append(new_animal)
     save_data(data)
-    return redirect('/')
+    return redirect("/records")  # Redirect to new page
+
+@app.route('/records')
+def show_records():
+    animals = load_data()
+    return render_template("records.html", animals=animals)
 
 @app.route('/delete/<int:index>')
-def delete(index):
+def delete_animal(index):
     data = load_data()
     if 0 <= index < len(data):
         data.pop(index)
         save_data(data)
-    return redirect('/')
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    return redirect("/records")
