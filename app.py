@@ -25,8 +25,23 @@ def add():
     name = request.form['name']
     species = request.form['species']
     age = request.form['age']
+    caretaker = request.form['caretaker']
+    feeding_schedule = request.form['feeding_schedule']
+    vet_checkups = request.form['vet_checkups']
+    tickets = request.form['tickets']
+    visitors = request.form['visitors']
+
     data = load_data()
-    data.append({"name": name, "species": species, "age": age})
+    data.append({
+        "name": name,
+        "species": species,
+        "age": age,
+        "caretaker": caretaker,
+        "feeding_schedule": feeding_schedule,
+        "vet_checkups": vet_checkups,
+        "tickets": tickets,
+        "visitors": visitors
+    })
     save_data(data)
     return redirect('/')
 

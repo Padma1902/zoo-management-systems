@@ -1,23 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Zoo Management</title>
+    <title>Zoo Management System</title>
 </head>
 <body>
     <h1>Zoo Management System</h1>
-
-    <form action="/add" method="POST">
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="text" name="species" placeholder="Species" required>
-        <input type="text" name="age" placeholder="Age" required>
+    
+    <form action="/add" method="post">
+        <input type="text" name="name" placeholder="Animal Name" required><br>
+        <input type="text" name="species" placeholder="Species" required><br>
+        <input type="number" name="age" placeholder="Age" required><br>
+        <input type="text" name="caretaker" placeholder="Caretaker" required><br>
+        <input type="text" name="feeding_schedule" placeholder="Feeding Schedule" required><br>
+        <input type="text" name="vet_checkups" placeholder="Vet Checkups" required><br>
+        <input type="text" name="tickets" placeholder="Tickets Info" required><br>
+        <input type="number" name="visitors" placeholder="Visitors" required><br>
         <button type="submit">Add Animal</button>
     </form>
 
+    <hr>
+
+    <h2>Animal Records</h2>
     <ul>
         {% for animal in animals %}
-            <li>{{ animal.name }} - {{ animal.species }} - {{ animal.age }}
+            <li>
+                <strong>{{ animal.name }}</strong> ({{ animal.species }}) - Age: {{ animal.age }}<br>
+                Caretaker: {{ animal.caretaker }}<br>
+                Feeding Schedule: {{ animal.feeding_schedule }}<br>
+                Vet Checkups: {{ animal.vet_checkups }}<br>
+                Tickets: {{ animal.tickets }}<br>
+                Visitors: {{ animal.visitors }}<br>
                 <a href="/delete/{{ loop.index0 }}">Delete</a>
             </li>
+            <hr>
         {% endfor %}
     </ul>
 </body>
