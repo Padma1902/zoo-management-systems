@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animal Records</title>
+    <style>
+        body {
+            background-image: url('/static/zoo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-shadow: 1px 1px 4px black;
+        }
+
+        ul, li {
+            color: #fff;
+        }
+
+        a {
+            color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+    <h1>Animal Records</h1>
+    <ul>
+        {% for animal in animals %}
+            <li>
+                <strong>{{ animal.name }}</strong> ({{ animal.species }}) - Age: {{ animal.age }}<br>
+                Caretaker: {{ animal.caretaker }}<br>
+                Feeding Schedule: {{ animal.feeding_schedule }}<br>
+                Vet Checkups: {{ animal.vet_checkups }}<br>
+                Tickets: {{ animal.tickets }}<br>
+                Visitors: {{ animal.visitors }}<br>
+                <a href="/delete/{{ loop.index0 }}">Delete</a>
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+</body>
+</html>
