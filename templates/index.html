@@ -1,34 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Animal</title>
+    <title>Zoo Management System</title>
     <style>
         body {
-            background-image: url('/static/zoo.jpg');
+            background-image: url('/static/zoo.jpg'); /* Use this path if using Flask */
             background-size: cover;
-            background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
             font-family: Arial, sans-serif;
-            color: #fff;
-            min-height: 100vh;
-            margin: 0;
-            padding: 0;
+            color: #fff; /* Set global text color to white */
         }
 
         form input, form button {
             margin: 5px 0;
             padding: 8px;
-            color: #000;
+            color: #000; /* Keep input text black for readability */
         }
 
-        h1 {
+        h1, h2 {
             text-shadow: 1px 1px 4px black;
+            color: #fff; /* Force white */
+        }
+
+        ul, li {
+            color: #fff; /* White text for list items */
+        }
+
+        a {
+            color: #ffcc00; /* Optional: light yellow links for visibility */
         }
     </style>
 </head>
 <body>
-    <h1>Add Animal</h1>
+    <h1>Zoo Management System</h1>
+    
     <form action="/add" method="post">
         <input type="text" name="name" placeholder="Animal Name" required><br>
         <input type="text" name="species" placeholder="Species" required><br>
@@ -40,5 +46,23 @@
         <input type="number" name="visitors" placeholder="Visitors" required><br>
         <button type="submit">Add Animal</button>
     </form>
+
+    <hr>
+
+    <h2>Animal Records</h2>
+    <ul>
+        {% for animal in animals %}
+            <li>
+                <strong>{{ animal.name }}</strong> ({{ animal.species }}) - Age: {{ animal.age }}<br>
+                Caretaker: {{ animal.caretaker }}<br>
+                Feeding Schedule: {{ animal.feeding_schedule }}<br>
+                Vet Checkups: {{ animal.vet_checkups }}<br>
+                Tickets: {{ animal.tickets }}<br>
+                Visitors: {{ animal.visitors }}<br>
+                <a href="/delete/{{ loop.index0 }}">Delete</a>
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
 </body>
 </html>
