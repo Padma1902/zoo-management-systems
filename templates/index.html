@@ -1,67 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Zoo Management System</title>
-    <style>
-        body {
-            background-image: url('/static/zoo.jpg'); /* Use this path if using Flask */
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            font-family: Arial, sans-serif;
-            color: #fff; /* Set global text color to white */
-        }
-
-        form input, form button {
-            margin: 5px 0;
-            padding: 8px;
-            color: #000; /* Keep input text black for readability */
-        }
-
-        h1, h2 {
-            text-shadow: 1px 1px 4px black;
-            color: #fff; /* Force white */
-        }
-
-        ul, li {
-            color: #fff; /* White text for list items */
-        }
-
-        a {
-            color: #ffcc00; /* Optional: light yellow links for visibility */
-        }
-    </style>
+    <title>Zoo Management</title>
 </head>
 <body>
-    <h1>Zoo Management System</h1>
-    
+    <h1>Zoo Animal Records</h1>
+
     <form action="/add" method="post">
-        <input type="text" name="name" placeholder="Animal Name" required><br>
-        <input type="text" name="species" placeholder="Species" required><br>
-        <input type="number" name="age" placeholder="Age" required><br>
-        <input type="text" name="caretaker" placeholder="Caretaker" required><br>
-        <input type="text" name="feeding_schedule" placeholder="Feeding Schedule" required><br>
-        <input type="text" name="vet_checkups" placeholder="Vet Checkups" required><br>
-        <input type="text" name="tickets" placeholder="Tickets Info" required><br>
-        <input type="number" name="visitors" placeholder="Visitors" required><br>
+        <input name="name" placeholder="Animal Name" required><br>
+        <input name="species" placeholder="Species" required><br>
+
+        <label>Gender:</label>
+        <input type="radio" name="gender" value="Male" required> Male
+        <input type="radio" name="gender" value="Female" required> Female<br>
+
+        <input name="age" placeholder="Age" required><br>
+        <input name="caretaker" placeholder="Caretaker" required><br>
+        <input name="feeding_schedule" placeholder="Feeding Schedule" required><br>
+        <input name="vet_checkups" placeholder="Vet Checkups" required><br>
+
+        <label>Ticket Type:</label>
+        <select name="tickets" required>
+            <option value="Adult">Adult</option>
+            <option value="Child">Child</option>
+        </select><br>
+
+        <input name="visitors" placeholder="Visitors Count" required><br>
         <button type="submit">Add Animal</button>
     </form>
 
-    <hr>
-
-    <h2>Animal Records</h2>
+    <h2>Animal List</h2>
     <ul>
         {% for animal in animals %}
             <li>
-                <strong>{{ animal.name }}</strong> ({{ animal.species }}) - Age: {{ animal.age }}<br>
-                Caretaker: {{ animal.caretaker }}<br>
-                Feeding Schedule: {{ animal.feeding_schedule }}<br>
-                Vet Checkups: {{ animal.vet_checkups }}<br>
-                Tickets: {{ animal.tickets }}<br>
-                Visitors: {{ animal.visitors }}<br>
+                {{ animal.name }} - {{ animal.species }} - {{ animal.gender }} - Age: {{ animal.age }}
                 <a href="/delete/{{ loop.index0 }}">Delete</a>
             </li>
-            <hr>
         {% endfor %}
     </ul>
 </body>
